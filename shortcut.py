@@ -17,9 +17,12 @@ def makeShortcuts (inputPath,outputPath):
           if("UnityCrashHandler" not in f):
               # Make a link on the desktop
               print(f) 
-              os.symlink(f, os.path.expanduser(outputPath+"/"+os.path.basename(f)))
+              # Check that the file doesn't already exist
+              if not os.path.exists(os.path.expanduser(outputPath+"/"+os.path.basename(f))):
+                os.symlink(f, os.path.expanduser(outputPath+"/"+os.path.basename(f)))
     except:
-       print("Unexpected error occurred")
+      # print the error
+      print("An error occurred: ", sys.exc_info()[0])
 
 class window(QWidget):
     def __init__(self, parent = None):
